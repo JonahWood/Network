@@ -1,8 +1,12 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+  <nav class="header-net navbar navbar-expand-lg px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
+        <img alt="logo" src="../assets/img/qr.png" height="60" />
+        
+      </div>
+      <div>
+        <h1 class="ms-2 text-dark">Network</h1>
       </div>
     </router-link>
     <button
@@ -19,7 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
+          <router-link :to="{ name: 'About' }" class="btn text-dark lighten-30 selectable text-uppercase">
             About
           </router-link>
         </li>
@@ -53,6 +57,10 @@ a:hover {
   border-bottom: 2px solid var(--bs-success);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+.header-net{
+  background: linear-gradient(115deg, #ffffff 10%, #000000 90%);
 }
 
 @media screen and (min-width: 768px) {
