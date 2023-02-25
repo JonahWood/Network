@@ -1,9 +1,9 @@
 <template>
-<div class="card py-2">
+<div class="card p-2">
     
     <div>
         <div>{{ post.body }}</div>
-        <img class="m-1 rounded img-fluid" height="500" :src="post.imgUrl" alt="image.png">
+        <img class="rounded img-fluid" height="500" :src="post.imgUrl" alt="image.png">
     </div>
     <div class="d-flex p-2  justify-content-end">
         <img :title="`${post.creator.name}'s page`" class="profile-picture" :src="post.creator.picture" alt="">
@@ -18,7 +18,7 @@ import { Post } from '../models/Post';
 export default {
     props: {
         post: {
-            type: Post,
+            type: Object,
             required: true
             
         }

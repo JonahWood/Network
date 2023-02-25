@@ -4,9 +4,23 @@
     <div v-for="p in posts" class="col-8 mb-3">
       <PostsCard :post="p"/>
     </div>
-    <div class="offset-1 col-2">
-
+    <div v-for="a in ads" class="col-2">
+      <Ad :ad="a"/>
     </div>
+<div v-if="account.id" class="sticky-bottom">
+  <button class=" btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">Your Profile</button>
+
+<div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasBottomLabel">Profile</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body small">
+    put the profile junk here future Jonah
+    good luck (づ◔ ͜ʖ◔)づ
+  </div>
+</div>
+</div>
   </div>
 </div>
 </template>
@@ -16,8 +30,10 @@ import { onMounted, computed } from 'vue';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import { postsService } from '../services/PostsService'
+import { adsService } from '../services/AdsService'
 import { AppState } from "../AppState"
 import PostsCard from '../components/PostsCard.vue';
+import Ad from '../components/Ad.vue';
 
 
 
@@ -32,14 +48,25 @@ export default {
                 logger.error(error);
             }
         }
+        async function getAds(){
+          try {
+            adsService.getAds()
+          } catch (error) {
+            Pop.error(error)
+            logger.error(error)
+          }
+        }
         onMounted(() => {
             getPosts();
+            getAds();
         });
         return {
-            posts: computed(() => AppState.posts.posts)
+            account: computed(() => AppState.account),
+            posts: computed(() => AppState.posts),
+            ads: computed(() => AppState.ads)
         };
     },
-    components: { PostsCard }
+    components: { PostsCard, Ad }
 }
 </script>
 
