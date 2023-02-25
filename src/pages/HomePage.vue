@@ -10,14 +10,13 @@
 <div v-if="account.id" class="sticky-bottom">
   <button class=" btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">Your Profile</button>
 
-<div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+<div class="offcanvas offcanvas-bottom bg-dark offcanvas-size-xxl " tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasBottomLabel">Profile</h5>
+    <h5 class="offcanvas-title" id="offcanvasBottomLabel">Your Profile</h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body small">
-    put the profile junk here future Jonah
-    good luck (づ◔ ͜ʖ◔)づ
+    <Login />
   </div>
 </div>
 </div>
@@ -34,11 +33,13 @@ import { adsService } from '../services/AdsService'
 import { AppState } from "../AppState"
 import PostsCard from '../components/PostsCard.vue';
 import Ad from '../components/Ad.vue';
+import Login from '../components/Login.vue';
 
 
 
 export default {
     setup() {
+
         async function getPosts() {
             try {
                 await postsService.getPosts();
@@ -66,11 +67,17 @@ export default {
             ads: computed(() => AppState.ads)
         };
     },
-    components: { PostsCard, Ad }
+    components: { PostsCard, Ad, Login }
 }
 </script>
 
 <style scoped lang="scss">
+.offcanvas-size-xxl {
+    width: 100%;
+    height: 60vh !important
+}
+
+
 .home {
   display: grid;
   height: 80vh;
