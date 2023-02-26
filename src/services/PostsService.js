@@ -11,6 +11,23 @@ async getPosts(){
     // AppState.posts.map(p => new Post(p))
     logger.log('[posts from the appstate]', AppState.posts)
 }
+
+async getPostsByCreator(query){
+    const res = await api.get('api/posts', {params: query})
+    logger.log('this profiles posts:', res.data)
+    AppState.posts = res.data.posts
+    logger.log('aaaaaaaaaa',AppState.posts)
+}
+
+clearPosts(){
+    AppState.posts = []
+}
+
+async createPost(postData){
+    const res = await api.post('api/posts', postData)
+    AppState.posts.unshift(res.data)
+    return res.data
+}
 }
 
 export const postsService = new PostsService

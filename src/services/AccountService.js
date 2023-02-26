@@ -12,9 +12,7 @@ class AccountService {
       logger.error('HAVE YOU STARTED YOUR SERVER YET???', err)
     }
   }
-  async getGit(){
-    
-  }
+
 
   async editAccount(formData) {
     const res = await api.put('account', formData)

@@ -6,15 +6,26 @@
     </button>
     <div v-else>
       <div class="d-flex about text-start justify-content-between">
-        <h1>Hello 
+        
+        <h1>
+          Hello 
           <router-link :to="{name: 'EditAccountPage'}">
-          <span title="Edit Account" :data-content="account.name" class="prof-text">{{ account.name }}</span>
+          <span :data-content="account.name" class="prof-text">{{ account.name }}
+        <span v-if="account.graduated"><i class="mdi mdi-school"></i></span>
+          </span>
         </router-link>
-        <h6 v-if="account.github">
-          <a :href="account.github" target="_blank">
-            <i class="mdi mdi-github"></i>
+        <div class="d-flex">  
+          <h4 v-if="account.github">
+            <a :href="account.github" target="_blank">
+              <i class="mdi mdi-github"></i>
+            </a>
+          </h4>
+          <h4 v-if="account.linkedin">
+            <a :href="account.linkedin" target="_blank">
+            <i class="mdi mdi-linkedin"></i>
           </a>
-        </h6>
+          </h4>
+        </div>
         </h1>
         <div><img class="profile-picture" :src="account.picture" :alt="account.name"></div>
       </div>
@@ -26,6 +37,7 @@
           <div class="col-6 bio-class">
             <span class="">{{ account.bio }}
         </span>
+        {{ account.class }}
           </div>
         </div>
       </div>
@@ -33,10 +45,10 @@
         
 
       </div>
-            <!-- <div class="list-group-item dropdown-item list-group-item-action text-danger selectable" @click="logout">
+            <div class="mt-5 text-danger selectable text-end" @click="logout">
               <i class="mdi mdi-logout"></i>
               logout
-            </div> -->
+            </div>
           </div>
   </span>
 </template>
@@ -52,14 +64,7 @@ import { logger } from '../utils/Logger'
 import Pop from '../utils/Pop'
 export default {
   setup() {
-    async function getGit(){
-      try {
-        accountService.getGit()
-      } catch (error) {
-        Pop.error(error.message)
-        logger.error(error)
-      }
-    }
+    
     return {
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
