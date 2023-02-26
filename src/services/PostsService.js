@@ -61,6 +61,12 @@ async search(searchData){
     AppState.page = res.data.page
 }
 
+async likePost(id){
+    const res = await api.post('api/posts/'+ id + '/like')
+    logger.log('liked that post', res.data)
+    await this.getPosts()
+}
+
 }
 
 export const postsService = new PostsService

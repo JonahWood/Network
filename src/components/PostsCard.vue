@@ -10,6 +10,12 @@
         <img :title="`${post.creator.name}'s page`" class="profile-picture" :src="post.creator.picture" alt="https://via.placeholder.com/300">
     </div>
 </router-link>
+<div class="likes d-flex justify-content-end mb-2">
+    <i v-if="!post.likeIds.includes(account.id)" class="text-danger mdi mdi-heart-outline selectable" title="likes"
+        @click="likePost(post.id)"></i>
+    <i v-else class="text-danger mdi mdi-heart selectable " title="likes" @click="likePost(post.id)"></i>
+    <div class="text ms-2">{{ post.likes.length }}</div>
+    </div>
 </div>
 </template>
 
@@ -34,8 +40,18 @@ export default {
 
 
     
-    setup(props){
+    setup(){
         return {
+            async likePost(id){
+                try {
+                    await postsService.likePost(id)
+                } catch (error) {
+                    Pop.error(error.message)
+                    logger.error('this is the logger in [likePost]',error)
+                }
+            },
+
+
             async deletePost(postId){
                 try {
                     if (await Pop.confirm("Are you sure you'd like to delete this post?")) {
@@ -67,7 +83,9 @@ img {
 		}
 	}
 
-
+.likes{
+    font-size: 3vh;
+}
 .profile-picture {
 height: 10vh;
 width: 10vh;
