@@ -2,10 +2,10 @@
     <div class="container-fluid">
 <div class="row">
     <div class="col-12 mt-3">
-        <img class="coverimg-css" :src="profile?.coverImg" :alt="profile?.name">
+        <img class="coverimg-css" :src="profile?.coverImg">
     </div>
     <div class="col-5 mt-1">
-        <h1> <img class="profile-picture" :src="profile?.picture" :alt="profile?.name"> {{profile?.name}}
+        <h1> <img class="profile-picture" :src="profile?.picture"> {{profile?.name}}
             <span v-if="profile?.graduated"><i class="mdi mdi-school"></i></span> 
             <span v-if="profile?.github"><a :href="profile?.github" target="_blank">
             <i class="mdi mdi-github"></i>
@@ -27,6 +27,21 @@
     <div v-for="p in posts" class="col-6">
     <PostsCard :post="p"/>
     </div>
+    <div class="offset-4 col-3 mt-1">
+    <button v-if="(page > 1)" @click="changePage(page = 1)">First</button>
+    <button v-else disabled>First</button>
+<button @click="changePage(page - 1)" v-if="(page > 1)">Previous</button>
+<button v-else disabled>Previous</button>
+
+</div>
+
+<div class="col-2 mt-1">
+<button @click="changePage(page + 1)" v-if="(page < max)">Next</button>
+<button v-else disabled>Next</button>
+<button v-if="(page < max)" @click="changePage(page = max)">Last</button>
+<button v-else disabled>Last</button>
+
+</div>
     <div v-for="a in ads" class="col-2">
     <Ad :ad="a"/>
     </div>
@@ -92,10 +107,22 @@ onUnmounted(()=>{
 })
 
 return {
+    async changePage(page){
+try {
+  await postsService.changePage(page, route.params.id)
+} catch (error) {
+  Pop.error(error.message)
+  logger.error('[this is the error from the changePage]', error)
+}
+},
+
+
+
     profile: computed(()=>AppState.profile),
     posts: computed(()=> AppState.posts),
-    ads: computed(() => AppState.ads)
-
+    ads: computed(() => AppState.ads),
+    page: computed(()=> AppState.page),
+    max: computed(()=> AppState.max)
 }
 },
 components: { PostsCard }
@@ -105,6 +132,17 @@ components: { PostsCard }
 
 
 <style lang="scss" scoped>
+
+img {
+		display: block;
+		position: relative;
+		&:before {
+			content: url(https://via.placeholder.com/300);
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+	}
 
 .profile-picture {
 height: 10vh;

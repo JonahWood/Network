@@ -5,9 +5,14 @@ import { api } from "./AxiosService"
 
 class PostsService{
 async getPosts(){
-    const res = await api.get('api/posts')
-    // logger.log(res.data)
+    const page = 1
+    // const res = await api.get('api/posts')
+    const res = await api.get('api/posts?page=' + page)
+    logger.log('ah shit here we go again',res.data)
     AppState.posts = res.data.posts
+    AppState.page = page
+    // AppState.max = res.data.posts.page.max
+    AppState.max = res.data.totalPages
     // AppState.posts.map(p => new Post(p))
     logger.log('[posts from the appstate]', AppState.posts)
 }
@@ -34,6 +39,19 @@ async deletePost(postId){
     let postIndex = AppState.posts.findIndex(p=>p.id == postId)
     const res = await api.delete(`api/posts/${postId}`)
     AppState.posts.splice(postIndex, 1)
+}
+
+
+async changePage(page, id){
+    if (id = null) {
+        const res = await api.get('api/posts?page=' + page)
+        AppState.posts = res.data.posts
+        AppState.page = page
+    } else {
+        const res = await api.get('api/posts', { params: { creatorId: id, page: page } })
+        AppState.posts = res.data.posts
+        AppState.page = page
+    }
 }
 }
 

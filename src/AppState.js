@@ -12,4 +12,7 @@ export const AppState = reactive({
   posts:[],
 
   ads:[],
+
+  page: 1,
+  max: 0
 })

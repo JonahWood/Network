@@ -1,6 +1,24 @@
 <template>
 <div class="container">
   <div class="row">
+    <div class="offset-4 col-3 mt-1">
+      <button v-if="(page > 1)" @click="changePage(page = 1)">First</button>
+      <button v-else disabled>First</button>
+  <button @click="changePage(page - 1)" v-if="(page > 1)">Previous</button>
+  <button v-else disabled>Previous</button>
+  
+</div>
+
+<div class="col-2 mt-1">
+<button @click="changePage(page + 1)" v-if="(page < max)">Next</button>
+<button v-else disabled>Next</button>
+<button v-if="(page < max)" @click="changePage(page = max)">Last</button>
+<button v-else disabled>Last</button>
+
+</div>
+<div class="offset-6 col-2">
+  <span><h3>{{ page }}</h3></span>
+</div>
     <div v-if="account.id" class="col-12 card my-2">
       <form @submit.prevent="createPost">
         <div class="mb-3">
@@ -24,6 +42,11 @@
     <div v-for="a in ads" class="col-2">
       <Ad :ad="a"/>
     </div>
+
+
+
+
+
 <div class="sticky-bottom">
   <button class=" btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">Your Profile</button>
 
@@ -58,6 +81,7 @@ export default {
     setup() {
       const editable = ref({})
 
+      
 
 
         async function getPosts() {
@@ -83,6 +107,17 @@ export default {
         });
         return {
           editable,
+
+          async changePage(page){
+try {
+  await postsService.changePage(page)
+} catch (error) {
+  Pop.error(error.message)
+  logger.error('[this is the error from the changePage]', error)
+}
+},
+
+
           async createPost(){
 try {
   await postsService.createPost(editable.value)
@@ -93,7 +128,10 @@ try {
 },
             account: computed(() => AppState.account),
             posts: computed(() => AppState.posts),
-            ads: computed(() => AppState.ads)
+            ads: computed(() => AppState.ads),
+            page: computed(()=> AppState.page),
+            max: computed(()=> AppState.max)
+
         };
     },
     components: { PostsCard, Ad, Login }
