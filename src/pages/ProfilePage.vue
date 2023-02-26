@@ -4,7 +4,7 @@
     <div class="col-12 mt-3">
         <img class="coverimg-css" :src="profile?.coverImg" :alt="profile?.name">
     </div>
-    <div class="col-4 mt-1">
+    <div class="col-5 mt-1">
         <h1> <img class="profile-picture" :src="profile?.picture" :alt="profile?.name"> {{profile?.name}}
             <span v-if="profile?.graduated"><i class="mdi mdi-school"></i></span> 
             <span v-if="profile?.github"><a :href="profile?.github" target="_blank">
@@ -15,15 +15,20 @@
             <i class="mdi mdi-linkedin"></i>
                 </a>
             </span>
+<div class="ms-2"><h5>Class: {{ profile?.class ? profile?.class : 'None'}}</h5></div>
         </h1>
     </div>
-    <div class="col-8 bio-class mt-3">
+    <div class="col-7 bio-class mt-3">
         <h4>{{ profile?.bio }} 
             
         </h4>
     </div>
+    <div class="offset-5 col-7 bio-class-2 mb-3"><h4>{{ profile?.resume ? profile?.resume : 'I have no resume!' }}</h4></div>
     <div v-for="p in posts" class="col-6">
     <PostsCard :post="p"/>
+    </div>
+    <div v-for="a in ads" class="col-2">
+    <Ad :ad="a"/>
     </div>
 </div>
 
@@ -88,7 +93,9 @@ onUnmounted(()=>{
 
 return {
     profile: computed(()=>AppState.profile),
-    posts: computed(()=> AppState.posts)
+    posts: computed(()=> AppState.posts),
+    ads: computed(() => AppState.ads)
+
 }
 },
 components: { PostsCard }
@@ -112,6 +119,11 @@ box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.578);
 font-size: 3vh;
 border-bottom: 1px solid #8080807a;
 border-top: 1px solid #8080807a;
+}
+
+.bio-class-2{
+font-size: 3vh;
+border-bottom: 1px solid #8080807a;
 }
 
 .coverimg-css{

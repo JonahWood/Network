@@ -1,5 +1,5 @@
 <template>
-<div class="card p-2">
+<div class="card p-2 posts-sizenstuff">
     
     <div>
         <span><h5 class="d-flex justify-content-between">{{ post.body }} <i @click="deletePost(post.id)" v-if="account?.id == post.creatorId" class="mdi mdi-delete selectable"></i></h5>  </span>
@@ -7,7 +7,7 @@
     </div>
     <router-link :to="{name: 'Profile', params: {profileId: post.creatorId}}">
     <div class="d-flex p-2  justify-content-end selectable">
-        <img :title="`${post.creator.name}'s page`" class="profile-picture" :src="post.creator.picture" alt="">
+        <img :title="`${post.creator.name}'s page`" class="profile-picture" :src="post.creator.picture" alt="https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg">
     </div>
 </router-link>
 </div>
