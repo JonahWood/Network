@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <div class="offset-4 col-3 mt-1">
       <button v-if="(page > 1)" @click="changePage(page = 1)">First</button>
