@@ -53,6 +53,14 @@ async changePage(page, id){
         AppState.page = page
     }
 }
+
+async search(searchData){
+    const res = await api.get('api/posts', {params: searchData})
+    logger.log('the search found', res.data)
+    AppState.posts = res.data.posts
+    AppState.page = res.data.page
+}
+
 }
 
 export const postsService = new PostsService

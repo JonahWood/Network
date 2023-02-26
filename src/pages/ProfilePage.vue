@@ -57,6 +57,7 @@ import { onMounted, onUnmounted, computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { AppState } from '../AppState';
 import { postsService } from '../services/PostsService';
+import { adsService } from '../services/AdsService'
 import { profilesService } from '../services/ProfilesService.js'
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
@@ -90,13 +91,21 @@ async function getPostsByCreator(){
     }
 }
 
+async function getAds(){
+        try {
+            adsService.getAds()
+        } catch (error) {
+            Pop.error(error)
+            logger.error(error)
+        }
+        }
+
 function test(){
     logger.log('testing')
 }
 
 onMounted(() => {
-    
-    test();
+    getAds()
     getProfileById();
     getPostsByCreator();
 });

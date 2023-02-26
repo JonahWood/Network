@@ -19,7 +19,17 @@
 <div class="offset-6 col-2">
   <span><h3>{{ page }}</h3></span>
 </div>
-    <div v-if="account.id" class="col-12 card my-2">
+<div class="col-12">
+  <form @submit.prevent="search()">
+  <div class="input-group">
+    <input v-model="editable.query" required class="form-control" placeholder="Search Posts" aria-describedby="button-addon2" aria-label="Search Posts"  type="text">
+    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
+              <i class="mdi mdi-magnify"></i>
+            </button>
+  </div>
+</form>
+</div>
+    <div v-if="account.id" class="col-8 card my-2">
       <form @submit.prevent="createPost">
         <div class="mb-3">
             <label class="form-label">New Post</label>
@@ -36,12 +46,17 @@
     </div>
       </form>
     </div>
+    <div v-for="a in ads" class="col-1">
+      <marquee behavior="" direction="up">
+      <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+          <Ad :ad="a"/>
+        </a>
+      </marquee>
+    </div>
     <div v-for="p in posts" class="col-8 mb-3">
       <PostsCard :post="p"/>
     </div>
-    <div v-for="a in ads" class="col-2">
-      <Ad :ad="a"/>
-    </div>
+
 
 
 
@@ -107,6 +122,19 @@ export default {
         });
         return {
           editable,
+
+          async search(){
+            try {
+              let searchData = editable.value
+              await postsService.search(searchData)
+              editable.value = {}
+            } catch (error) {
+              Pop.error(error.message)
+              logger.error('[this is the error from the Search]', error)
+            }
+          },
+
+
 
           async changePage(page){
 try {
