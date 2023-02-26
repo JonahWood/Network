@@ -8,7 +8,7 @@ async getPosts(){
     const page = 1
     // const res = await api.get('api/posts')
     const res = await api.get('api/posts?page=' + page)
-    logger.log('ah shit here we go again',res.data)
+    logger.log('ah here we go again',res.data)
     AppState.posts = res.data.posts
     AppState.page = page
     // AppState.max = res.data.posts.page.max

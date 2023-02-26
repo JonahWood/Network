@@ -1,3 +1,5 @@
+import { Profile } from "./Account"
+
 export class Post{
 constructor(){
 this.body = data.body
@@ -6,6 +8,6 @@ this.imgPH = 'https://bcw.blob.core.windows.net/public/images/7538647622428924'
 this.creatorId = data.creatorId
 this.likeIds = data.likeIds
 this.creator = new Profile(data.creator)
-// this.createdAt = new Date(data.createdAt).toLocaleDateString()
+this.createdAt = new Date(data.createdAt)
 }
 }
