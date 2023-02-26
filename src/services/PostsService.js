@@ -28,6 +28,13 @@ async createPost(postData){
     AppState.posts.unshift(res.data)
     return res.data
 }
+
+
+async deletePost(postId){
+    let postIndex = AppState.posts.findIndex(p=>p.id == postId)
+    const res = await api.delete(`api/posts/${postId}`)
+    AppState.posts.splice(postIndex, 1)
+}
 }
 
 export const postsService = new PostsService

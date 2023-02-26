@@ -34,7 +34,7 @@
           <div class="col-6">
             <img height="350" :src="account.coverImg" :alt="account.name">
           </div>
-          <div class="col-6 bio-class">
+          <div class="offset-1 col-5 bio-class">
             <span class="">{{ account.bio }}
         </span>
         {{ account.class }}
