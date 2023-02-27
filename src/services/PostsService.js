@@ -48,7 +48,7 @@ async changePage(page, id){
         AppState.posts = res.data.posts
         AppState.page = page
     } else {
-        const res = await api.get('api/posts', { params: { creatorId: id, page: page } })
+        const res = await api.get('api/posts/', { params: { creatorId: id, page: page } })
         AppState.posts = res.data.posts
         AppState.page = page
     }

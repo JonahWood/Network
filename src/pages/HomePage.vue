@@ -46,11 +46,13 @@
     </div>
       </form>
     </div>
+    
     <div v-for="a in ads" class="col-1">
       <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
           <Ad :ad="a"/>
         </a>
     </div>
+
     <div v-for="p in posts" class="col-8 mb-3">
       <PostsCard :post="p"/>
     </div>
