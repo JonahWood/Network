@@ -27,7 +27,7 @@
     <div v-for="p in posts" class="col-6">
     <PostsCard :post="p"/>
     </div>
-    <div class="offset-4 col-3 mt-1">
+    <!-- <div class="offset-4 col-3 mt-1">
     <button v-if="(page > 1)" @click="changePage(page = 1)">First</button>
     <button v-else disabled>First</button>
 <button @click="changePage(page - 1)" v-if="(page > 1)">Previous</button>
@@ -41,7 +41,7 @@
 <button v-if="(page < max)" @click="changePage(page = max)">Last</button>
 <button v-else disabled>Last</button>
 
-</div>
+</div> -->
     <div v-for="a in ads" class="col-2">
     <Ad :ad="a"/>
     </div>
