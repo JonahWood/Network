@@ -23,7 +23,7 @@
             
         </h4>
     </div>
-    <div class="offset-5 col-7 bio-class-2 mb-3"><h4>{{ profile?.resume ? profile?.resume : 'I have no resume!' }}</h4></div>
+    <div v-if="profile?.resume" class="offset-5 col-7 bio-class-2 mb-3"><h4>{{ profile?.resume }}</h4></div>
     <div v-for="p in posts" class="col-6">
     <PostsCard :post="p"/>
     </div>

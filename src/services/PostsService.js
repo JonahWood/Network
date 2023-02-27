@@ -43,12 +43,18 @@ async deletePost(postId){
 
 
 async changePage(page, id){
-    if (id = null) {
-        const res = await api.get('api/posts?page=' + page)
+    if (id != null) {
+        // const res = await api.get('api/posts?page=' + page)
+        // AppState.posts = res.data.posts
+        // AppState.page = page
+        const res = await api.get('api/posts/', { params: { creatorId: id, page: page } })
         AppState.posts = res.data.posts
         AppState.page = page
     } else {
-        const res = await api.get('api/posts/', { params: { creatorId: id, page: page } })
+        // const res = await api.get('api/posts/', { params: { creatorId: id, page: page } })
+        // AppState.posts = res.data.posts
+        // AppState.page = page
+        const res = await api.get('api/posts?page=' + page)
         AppState.posts = res.data.posts
         AppState.page = page
     }
