@@ -3,7 +3,7 @@
     
     <div>
         <span><h5 class="d-flex justify-content-between">{{ post.body }} <i @click="deletePost(post.id)" v-if="account?.id == post.creatorId" class="mdi mdi-delete selectable"></i></h5> <h6>{{ new Date(post.createdAt).toLocaleDateString(`en-US`) }}</h6> </span>
-        <img class="rounded img-fluid" height="500" :src="post.imgUrl" alt="">
+        <img v-if="post.imgUrl" class="rounded img-fluid" height="500" :src="post.imgUrl" alt="">
     </div>
     <router-link :to="{name: 'Profile', params: {profileId: post.creatorId}}">
     <div class="d-flex p-2  justify-content-end selectable">
